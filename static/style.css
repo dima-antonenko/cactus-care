@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cactus-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.cactus {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.cactus:hover {
+    transform: scale(1.05);
+}
+
+.cactus-body {
+    width: 80px;
+    height: 120px;
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    border-radius: 40px 40px 20px 20px;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+}
+
+.cactus-spikes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 20%, #2E7D32 2px, transparent 2px),
+        radial-gradient(circle at 80% 30%, #2E7D32 2px, transparent 2px),
+        radial-gradient(circle at 30% 60%, #2E7D32 2px, transparent 2px),
+        radial-gradient(circle at 70% 70%, #2E7D32 2px, transparent 2px),
+        radial-gradient(circle at 50% 40%, #2E7D32 2px, transparent 2px);
+    background-size: 20px 20px;
+}
+
+.flowers {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flower {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    animation: bloom 0.5s ease-out;
+}
+
+.flower.red { background: #f44336; }
+.flower.pink { background: #e91e63; }
+.flower.yellow { background: #ffeb3b; }
+.flower.white { background: #ffffff; border: 2px solid #ddd; }
+.flower.purple { background: #9c27b0; }
+
+.flower::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 10px;
+    background: #4CAF50;
+}
+
+@keyframes bloom {
+    0% { transform: scale(0) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.info-panel {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.water-level {
+    margin-bottom: 20px;
+}
+
+.water-level h3 {
+    margin-bottom: 10px;
+    color: #2196F3;
+}
+
+.water-bar {
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.water-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2196F3, #03DAC6);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 50%;
+}
+
+.growth-stage {
+    margin-bottom: 20px;
+}
+
+.growth-stage h3 {
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.actions {
+    text-align: center;
+}
+
+.water-button {
+    background: linear-gradient(45deg, #2196F3, #03DAC6);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.water-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(33, 150, 243, 0.4);
+}
+
+.water-button:active {
+    transform: translateY(0);
+}
+
+.water-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.next-watering {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.message {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    color: #856404;
+    font-weight: 500;
+    display: none;
+}
+
+.message.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .cactus-container {
+        padding: 20px;
+    }
+    
+    .cactus-body {
+        width: 60px;
+        height: 90px;
+    }
+}
