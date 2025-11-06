@@ -250,7 +250,7 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Адаптивность */
+/* Responsive design */
 @media (max-width: 480px) {
     .container {
         padding: 15px;

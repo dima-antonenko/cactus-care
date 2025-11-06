@@ -12,14 +12,8 @@ An interactive virtual cactus care application designed for Telegram Mini Apps. 
 
 ## Screenshots
 
-![Cactus Care Main Screen](screenshots/main-screen.png)
-*Main interface showing cactus state and water level*
-
-![Flower Bloom](screenshots/flower-bloom.png)
-*Beautiful flowers that appear with regular care*
-
-![Statistics View](screenshots/stats-view.png)
-*User statistics and progress tracking*
+![Cactus Care Main Page](screenshots/main-page.png)
+*Main interface showing cactus state, water level, growth stage, and statistics*
 
 ## Getting Started
 
@@ -32,7 +26,7 @@ An interactive virtual cactus care application designed for Telegram Mini Apps. 
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone <https://github.com/dima-antonenko/cactus-care>
 cd cactus-care
 
 # Build the project

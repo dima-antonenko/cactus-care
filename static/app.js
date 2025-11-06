@@ -6,23 +6,23 @@ class CactusApp {
     }
 
     getUserId() {
-        // В реальном Telegram Mini App используем Telegram.WebApp.initDataUnsafe.user.id
-        // Для демонстрации используем фиксированный ID
+        // In real Telegram Mini App we use Telegram.WebApp.initDataUnsafe.user.id
+        // For demo purposes we use a fixed ID
         if (window.Telegram && window.Telegram.WebApp) {
             const user = window.Telegram.WebApp.initDataUnsafe?.user;
             if (user && user.id) {
                 return user.id.toString();
             }
         }
-        // Для тестирования используем случайный ID
+        // For testing we use a random ID
         return 'demo_user_' + Math.random().toString(36).substr(2, 9);
     }
 
     async init() {
-        console.log('🌵 Инициализация Cactus Care App...');
-        console.log('👤 User ID:', this.userId);
+        console.log('Initializing Cactus Care App...');
+        console.log('User ID:', this.userId);
         
-        // Инициализируем Telegram WebApp если доступен
+        // Initialize Telegram WebApp if available
         if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
@@ -40,10 +40,10 @@ class CactusApp {
             this.cactus = data.cactus;
             this.updateUI(data);
             
-            console.log('🌵 Кактус загружен:', this.cactus);
+            console.log('Cactus loaded:', this.cactus);
         } catch (error) {
-            console.error('❌ Ошибка загрузки кактуса:', error);
-            this.showMessage('Ошибка загрузки данных', 'error');
+            console.error('Error loading cactus:', error);
+            this.showMessage('Error loading data', 'error');
         }
     }
 
@@ -57,71 +57,71 @@ class CactusApp {
             this.cactus = data.cactus;
             this.updateUI(data);
             
-            console.log('💧 Кактус полит:', data.message);
+            console.log('Cactus watered:', data.message);
             this.showMessage(data.message, 'success');
             
-            // Анимация полива
+            // Watering animation
             this.animateWatering();
             
         } catch (error) {
-            console.error('❌ Ошибка полива:', error);
-            this.showMessage('Ошибка полива кактуса', 'error');
+            console.error('Error watering cactus:', error);
+            this.showMessage('Error watering cactus', 'error');
         }
     }
 
     updateUI(data) {
         const { cactus, can_water, next_watering_in } = data;
         
-        // Обновляем уровень воды
+        // Update water level
         const waterFill = document.getElementById('waterFill');
         const waterPercentage = document.getElementById('waterPercentage');
         waterFill.style.width = `${cactus.water_level}%`;
         waterPercentage.textContent = `${cactus.water_level}%`;
         
-        // Обновляем стадию роста
+        // Update growth stage
         const growthStage = document.getElementById('growthStage');
         growthStage.textContent = this.getGrowthStageText(cactus.growth_stage);
         
-        // Обновляем статистику
+        // Update statistics
         document.getElementById('totalWaterings').textContent = cactus.total_waterings;
         document.getElementById('consecutiveDays').textContent = cactus.consecutive_days;
         document.getElementById('totalFlowers').textContent = cactus.flowers.length;
         
-        // Обновляем цветы
+        // Update flowers
         this.updateFlowers(cactus.flowers);
         
-        // Обновляем кнопку полива
+        // Update water button
         const waterBtn = document.getElementById('waterBtn');
         const nextWatering = document.getElementById('nextWatering');
         
         if (can_water) {
             waterBtn.disabled = false;
-            waterBtn.textContent = '💧 Полить кактус';
+            waterBtn.textContent = 'Water Cactus';
             nextWatering.textContent = '';
         } else {
             waterBtn.disabled = true;
-            waterBtn.textContent = '⏳ Подождите...';
+            waterBtn.textContent = 'Please wait...';
             
             if (next_watering_in && next_watering_in > 0) {
                 const hours = Math.floor(next_watering_in / 3600);
                 const minutes = Math.floor((next_watering_in % 3600) / 60);
-                nextWatering.textContent = `Следующий полив через: ${hours}ч ${minutes}м`;
+                nextWatering.textContent = `Next watering in: ${hours}h ${minutes}m`;
             }
         }
         
-        // Обновляем внешний вид кактуса
+        // Update cactus appearance
         this.updateCactusAppearance(cactus);
     }
 
     getGrowthStageText(stage) {
         const stages = {
-            'Seed': 'Семечко',
-            'Sprout': 'Росток',
-            'Young': 'Молодой',
-            'Mature': 'Зрелый',
-            'Elder': 'Старый'
+            'Seed': 'Seed',
+            'Sprout': 'Sprout',
+            'Young': 'Young',
+            'Mature': 'Mature',
+            'Elder': 'Elder'
         };
-        return stages[stage] || 'Неизвестно';
+        return stages[stage] || 'Unknown';
     }
 
     updateFlowers(flowers) {
@@ -129,10 +129,10 @@ class CactusApp {
         flowersContainer.innerHTML = '';
         
         flowers.forEach(flower => {
-            if (!flower.wilting_at) { // Показываем только не увядшие цветы
+            if (!flower.wilting_at) { // Show only non-wilted flowers
                 const flowerElement = document.createElement('div');
                 flowerElement.className = `flower ${flower.color.toLowerCase()}`;
-                flowerElement.title = `Цветок ${flower.color} (${new Date(flower.bloomed_at).toLocaleDateString()})`;
+                flowerElement.title = `${flower.color} flower (${new Date(flower.bloomed_at).toLocaleDateString()})`;
                 flowersContainer.appendChild(flowerElement);
             }
         });
@@ -141,18 +141,18 @@ class CactusApp {
     updateCactusAppearance(cactus) {
         const cactusBody = document.getElementById('cactusBody');
         
-        // Изменяем размер кактуса в зависимости от стадии роста
+        // Change cactus size based on growth stage
         const sizeMultiplier = this.getSizeMultiplier(cactus.growth_stage);
         cactusBody.style.transform = `scale(${sizeMultiplier})`;
         
-        // Изменяем цвет в зависимости от уровня воды
+        // Change color based on water level
         const waterLevel = cactus.water_level;
         if (waterLevel < 30) {
-            cactusBody.style.background = 'linear-gradient(45deg, #8BC34A, #CDDC39)'; // Желтоватый
+            cactusBody.style.background = 'linear-gradient(45deg, #8BC34A, #CDDC39)'; // Yellowish
         } else if (waterLevel > 80) {
-            cactusBody.style.background = 'linear-gradient(45deg, #2E7D32, #4CAF50)'; // Темно-зеленый
+            cactusBody.style.background = 'linear-gradient(45deg, #2E7D32, #4CAF50)'; // Dark green
         } else {
-            cactusBody.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)'; // Обычный зеленый
+            cactusBody.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)'; // Normal green
         }
     }
 
@@ -174,7 +174,7 @@ class CactusApp {
             cactus.style.animation = 'waterDrop 0.6s ease';
         }, 10);
         
-        // Добавляем CSS анимацию для эффекта полива
+        // Add CSS animation for watering effect
         const style = document.createElement('style');
         style.textContent = `
             @keyframes waterDrop {
@@ -208,14 +208,14 @@ class CactusApp {
             this.waterCactus();
         });
         
-        // Автообновление каждые 30 секунд
+        // Auto-refresh every 30 seconds
         setInterval(() => {
             this.loadCactus();
         }, 30000);
     }
 }
 
-// Запускаем приложение когда DOM загружен
+// Start the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new CactusApp();
 });
